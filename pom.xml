@@ -37,10 +37,9 @@
     </license>
   </licenses>
   <scm>
-    <connection>scm:git:https://github.com/apache/bookkeeper.git</connection>
-    <developerConnection>scm:git:https://github.com/apache/bookkeeper.git</developerConnection>
-    <url>https://github.com/apache/bookkeeper</url>
-    <tag>branch-4.14</tag>
+    <connection>scm:git:https://github.com/datastax/bookkeeper.git</connection>
+    <developerConnection>scm:git:https://github.com/datastax/bookkeeper.git</developerConnection>
+    <url>https://github.com/datastax/bookkeeper</url>
   </scm>
   <issueManagement>
     <system>JIRA</system>
