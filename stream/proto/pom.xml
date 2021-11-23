@@ -18,18 +18,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.apache.bookkeeper</groupId>
+    <groupId>com.datastax.oss</groupId>
     <artifactId>stream-storage-parent</artifactId>
     <version>4.14.3-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
-  <groupId>org.apache.bookkeeper</groupId>
+  <groupId>com.datastax.oss</groupId>
   <artifactId>stream-storage-proto</artifactId>
   <name>Apache BookKeeper :: Stream Storage :: Proto</name>
 
   <dependencies>
     <dependency>
-      <groupId>org.apache.bookkeeper</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>stream-storage-common</artifactId>
       <version>${project.parent.version}</version>
     </dependency>
@@ -48,7 +48,7 @@
       <optional>true</optional>
     </dependency>
     <dependency>
-      <groupId>org.apache.bookkeeper.tests</groupId>
+      <groupId>com.datastax.oss.tests</groupId>
       <artifactId>stream-storage-tests-common</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>

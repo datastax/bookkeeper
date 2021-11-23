@@ -18,7 +18,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.apache.bookkeeper</groupId>
+    <groupId>com.datastax.oss</groupId>
     <artifactId>shaded-parent</artifactId>
     <version>4.14.3-SNAPSHOT</version>
     <relativePath>..</relativePath>
@@ -30,7 +30,7 @@
   </properties>
   <dependencies>
     <dependency>
-      <groupId>org.apache.bookkeeper</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>bookkeeper-server</artifactId>
       <version>${project.version}</version>
       <exclusions>
@@ -65,14 +65,14 @@
                 <includes>
                   <include>com.google.guava:guava</include>
                   <include>com.google.protobuf:protobuf-java</include>
-                  <include>org.apache.bookkeeper:bookkeeper-common</include>
-                  <include>org.apache.bookkeeper:bookkeeper-common-allocator</include>
-                  <include>org.apache.bookkeeper:cpu-affinity</include>
-                  <include>org.apache.bookkeeper:bookkeeper-tools-framework</include>
-                  <include>org.apache.bookkeeper:bookkeeper-proto</include>
-                  <include>org.apache.bookkeeper:bookkeeper-server</include>
-                  <include>org.apache.bookkeeper:circe-checksum</include>
-                  <include>org.apache.bookkeeper.stats:bookkeeper-stats-api</include>
+                  <include>com.datastax.oss:bookkeeper-common</include>
+                  <include>com.datastax.oss:bookkeeper-common-allocator</include>
+                  <include>com.datastax.oss:cpu-affinity</include>
+                  <include>com.datastax.oss:bookkeeper-tools-framework</include>
+                  <include>com.datastax.oss:bookkeeper-proto</include>
+                  <include>com.datastax.oss:bookkeeper-server</include>
+                  <include>com.datastax.oss:circe-checksum</include>
+                  <include>com.datastax.oss:bookkeeper-stats-api</include>
                 </includes>
               </artifactSet>
               <relocations>

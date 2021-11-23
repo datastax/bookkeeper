@@ -18,12 +18,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=" http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.apache.bookkeeper.tests</groupId>
+    <groupId>com.datastax.oss.tests</groupId>
     <artifactId>tests-parent</artifactId>
     <version>4.14.3-SNAPSHOT</version>
   </parent>
 
-  <groupId>org.apache.bookkeeper.tests</groupId>
+  <groupId>com.datastax.oss.tests</groupId>
   <artifactId>integration-tests-utils</artifactId>
   <packaging>jar</packaging>
 

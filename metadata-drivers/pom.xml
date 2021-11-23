@@ -18,11 +18,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>bookkeeper</artifactId>
-        <groupId>org.apache.bookkeeper</groupId>
+        <groupId>com.datastax.oss</groupId>
         <version>4.14.3-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.apache.bookkeeper.metadata.drivers</groupId>
+    <groupId>com.datastax.oss.metadata.drivers</groupId>
     <artifactId>metadata-drivers-parent</artifactId>
     <packaging>pom</packaging>
     <name>Apache BookKeeper :: Metadata Drivers :: Parent</name>

@@ -19,41 +19,41 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=" http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.apache.bookkeeper.tests</groupId>
+    <groupId>com.datastax.oss.tests</groupId>
     <artifactId>integration</artifactId>
     <version>4.14.3-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
 
-  <groupId>org.apache.bookkeeper.tests.integration</groupId>
+  <groupId>com.datastax.oss.tests.integration</groupId>
   <artifactId>cluster</artifactId>
   <packaging>jar</packaging>
   <name>Apache BookKeeper :: Tests :: Integration :: Cluster test</name>
 
   <dependencies>
     <dependency>
-      <groupId>org.apache.bookkeeper</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>bookkeeper-server</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
 
     <dependency>
-      <groupId>org.apache.bookkeeper</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>stream-storage-server</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
 
     <dependency>
-      <groupId>org.apache.bookkeeper.tests</groupId>
+      <groupId>com.datastax.oss.tests</groupId>
       <artifactId>integration-tests-topologies</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
 
     <dependency>
-      <groupId>org.apache.bookkeeper</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>bookkeeper-common</artifactId>
       <version>${project.version}</version>
       <type>test-jar</type>

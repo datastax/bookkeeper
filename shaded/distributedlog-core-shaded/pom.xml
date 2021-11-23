@@ -18,12 +18,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.apache.bookkeeper</groupId>
+    <groupId>com.datastax.oss</groupId>
     <artifactId>shaded-parent</artifactId>
     <version>4.14.3-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
-  <groupId>org.apache.distributedlog</groupId>
+  <groupId>com.datastax.oss</groupId>
   <artifactId>distributedlog-core-shaded</artifactId>
   <name>Apache BookKeeper :: Shaded :: distributedlog-core-shaded</name>
   <properties>
@@ -31,7 +31,7 @@
   </properties>
   <dependencies>
     <dependency>
-      <groupId>org.apache.distributedlog</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>distributedlog-core</artifactId>
       <version>${project.version}</version>
       <exclusions>
@@ -84,20 +84,20 @@
                   <include>com.google.protobuf:protobuf-java</include>
                   <include>net.java.dev.jna:jna</include>
                   <include>net.jpountz.lz4:lz4</include>
-                  <include>org.apache.bookkeeper:bookkeeper-common</include>
-                  <include>org.apache.bookkeeper:bookkeeper-common-allocator</include>
-                  <include>org.apache.bookkeeper:cpu-affinity</include>
-                  <include>org.apache.bookkeeper:bookkeeper-tools-framework</include>
-                  <include>org.apache.bookkeeper:bookkeeper-proto</include>
-                  <include>org.apache.bookkeeper:bookkeeper-server</include>
-                  <include>org.apache.bookkeeper:circe-checksum</include>
-                  <include>org.apache.bookkeeper.http:http-server</include>
-                  <include>org.apache.bookkeeper.stats:bookkeeper-stats-api</include>
+                  <include>com.datastax.oss:bookkeeper-common</include>
+                  <include>com.datastax.oss:bookkeeper-common-allocator</include>
+                  <include>com.datastax.oss:cpu-affinity</include>
+                  <include>com.datastax.oss:bookkeeper-tools-framework</include>
+                  <include>com.datastax.oss:bookkeeper-proto</include>
+                  <include>com.datastax.oss:bookkeeper-server</include>
+                  <include>com.datastax.oss:circe-checksum</include>
+                  <include>com.datastax.oss:http-server</include>
+                  <include>com.datastax.oss:bookkeeper-stats-api</include>
                   <include>org.apache.commons:commons-collections4</include>
                   <include>org.apache.commons:commons-lang3</include>
-                  <include>org.apache.distributedlog:distributedlog-common</include>
-                  <include>org.apache.distributedlog:distributedlog-core</include>
-                  <include>org.apache.distributedlog:distributedlog-protocol</include>
+                  <include>com.datastax.oss:distributedlog-common</include>
+                  <include>com.datastax.oss:distributedlog-core</include>
+                  <include>com.datastax.oss:distributedlog-protocol</include>
                   <include>org.apache.httpcomponents:httpclient</include>
                   <include>org.apache.httpcomponents:httpcore</include>
                   <include>org.apache.thrift:libthrift</include>

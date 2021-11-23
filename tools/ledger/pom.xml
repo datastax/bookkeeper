@@ -19,19 +19,19 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>bookkeeper-tools-parent</artifactId>
-    <groupId>org.apache.bookkeeper</groupId>
+    <groupId>com.datastax.oss</groupId>
     <version>4.14.3-SNAPSHOT</version>
   </parent>
   <artifactId>bookkeeper-tools-ledger</artifactId>
   <name>Apache BookKeeper :: Tools :: Ledger</name>
   <dependencies>
     <dependency>
-      <groupId>org.apache.bookkeeper</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>bookkeeper-tools-framework</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.bookkeeper</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>bookkeeper-server</artifactId>
       <version>${project.parent.version}</version>
     </dependency>
@@ -41,13 +41,13 @@
       <scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>org.apache.bookkeeper</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>buildtools</artifactId>
       <version>${project.parent.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.apache.bookkeeper</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>bookkeeper-server</artifactId>
       <type>test-jar</type>
       <version>${project.parent.version}</version>

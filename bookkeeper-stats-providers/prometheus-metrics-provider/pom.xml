@@ -19,16 +19,16 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>bookkeeper</artifactId>
-    <groupId>org.apache.bookkeeper</groupId>
+    <groupId>com.datastax.oss</groupId>
     <version>4.14.3-SNAPSHOT</version>
     <relativePath>../..</relativePath>
   </parent>
-  <groupId>org.apache.bookkeeper.stats</groupId>
+  <groupId>com.datastax.oss</groupId>
   <artifactId>prometheus-metrics-provider</artifactId>
   <name>Apache BookKeeper :: Stats Providers :: Prometheus</name>
   <dependencies>
     <dependency>
-      <groupId>org.apache.bookkeeper.stats</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>bookkeeper-stats-api</artifactId>
       <version>${project.parent.version}</version>
     </dependency>

@@ -19,10 +19,10 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>bookkeeper</artifactId>
-    <groupId>org.apache.bookkeeper</groupId>
+    <groupId>com.datastax.oss</groupId>
     <version>4.14.3-SNAPSHOT</version>
   </parent>
-  <groupId>org.apache.bookkeeper.stats</groupId>
+  <groupId>com.datastax.oss</groupId>
   <artifactId>bookkeeper-stats-api</artifactId>
   <name>Apache BookKeeper :: Stats API</name>
   <url>http://maven.apache.org</url>

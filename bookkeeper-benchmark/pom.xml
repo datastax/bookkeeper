@@ -20,10 +20,10 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>bookkeeper</artifactId>
-    <groupId>org.apache.bookkeeper</groupId>
+    <groupId>com.datastax.oss</groupId>
     <version>4.14.3-SNAPSHOT</version>
   </parent>
-  <groupId>org.apache.bookkeeper</groupId>
+  <groupId>com.datastax.oss</groupId>
   <artifactId>bookkeeper-benchmark</artifactId>
   <name>Apache BookKeeper :: Benchmark</name>
   <properties>
@@ -62,20 +62,20 @@
        <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.apache.bookkeeper</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>bookkeeper-server</artifactId>
       <version>${project.version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>org.apache.bookkeeper</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>bookkeeper-common</artifactId>
       <version>${project.version}</version>
       <type>test-jar</type>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.apache.bookkeeper</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>bookkeeper-server</artifactId>
       <version>${project.version}</version>
       <type>test-jar</type>

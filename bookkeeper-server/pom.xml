@@ -19,29 +19,29 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>bookkeeper</artifactId>
-    <groupId>org.apache.bookkeeper</groupId>
+    <groupId>com.datastax.oss</groupId>
     <version>4.14.3-SNAPSHOT</version>
   </parent>
   <artifactId>bookkeeper-server</artifactId>
   <name>Apache BookKeeper :: Server</name>
   <dependencies>
     <dependency>
-      <groupId>org.apache.bookkeeper</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>bookkeeper-common</artifactId>
       <version>${project.parent.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.bookkeeper</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>bookkeeper-common-allocator</artifactId>
       <version>${project.parent.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.bookkeeper</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>bookkeeper-proto</artifactId>
       <version>${project.parent.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.bookkeeper</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>bookkeeper-tools-framework</artifactId>
       <version>${project.parent.version}</version>
     </dependency>
@@ -71,12 +71,12 @@
       <artifactId>netty-tcnative-boringssl-static</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.apache.bookkeeper.http</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>http-server</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.bookkeeper</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>circe-checksum</artifactId>
       <version>${project.version}</version>
     </dependency>
@@ -118,7 +118,7 @@
     </dependency>
     <!-- testing dependencies -->
     <dependency>
-      <groupId>org.apache.bookkeeper</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>bookkeeper-common</artifactId>
       <version>${project.parent.version}</version>
       <type>test-jar</type>
@@ -167,13 +167,13 @@
        <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.apache.bookkeeper.stats</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>prometheus-metrics-provider</artifactId>
       <version>${project.parent.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.apache.bookkeeper.http</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>vertx-http-server</artifactId>
       <version>${project.parent.version}</version>
       <scope>test</scope>
@@ -267,7 +267,7 @@
       <id>vertx-http-server</id>
       <dependencies>
         <dependency>
-          <groupId>org.apache.bookkeeper.http</groupId>
+          <groupId>com.datastax.oss</groupId>
           <artifactId>vertx-http-server</artifactId>
           <version>${project.parent.version}</version>
         </dependency>

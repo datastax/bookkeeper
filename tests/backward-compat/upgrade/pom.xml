@@ -18,13 +18,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=" http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.apache.bookkeeper.tests</groupId>
+    <groupId>com.datastax.oss.tests</groupId>
     <artifactId>backward-compat</artifactId>
     <version>4.14.3-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
 
-  <groupId>org.apache.bookkeeper.tests.backward-compat</groupId>
+  <groupId>com.datastax.oss.tests.backward-compat</groupId>
   <artifactId>upgrade</artifactId>
   <packaging>jar</packaging>
   <name>Apache BookKeeper :: Tests :: Backward Compatibility :: Test upgrade between all released versions and current version</name>

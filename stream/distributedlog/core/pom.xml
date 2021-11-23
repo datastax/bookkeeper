@@ -18,7 +18,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.apache.distributedlog</groupId>
+    <groupId>com.datastax.oss</groupId>
     <artifactId>distributedlog</artifactId>
     <version>4.14.3-SNAPSHOT</version>
   </parent>
@@ -26,7 +26,7 @@
   <name>Apache BookKeeper :: DistributedLog :: Core Library</name>
   <dependencies>
     <dependency>
-      <groupId>org.apache.distributedlog</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>distributedlog-protocol</artifactId>
       <version>${project.parent.version}</version>
     </dependency>
@@ -39,7 +39,7 @@
       <artifactId>libthrift</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.apache.bookkeeper</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>bookkeeper-server</artifactId>
       <version>${project.parent.version}</version>
     </dependency>
@@ -55,14 +55,14 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.apache.bookkeeper</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>bookkeeper-common</artifactId>
       <version>${project.version}</version>
       <type>test-jar</type>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.apache.distributedlog</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>distributedlog-common</artifactId>
       <version>${project.parent.version}</version>
       <type>test-jar</type>
