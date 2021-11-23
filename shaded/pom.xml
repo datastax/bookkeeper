@@ -21,7 +21,7 @@
   <parent>
     <groupId>com.datastax.oss</groupId>
     <artifactId>bookkeeper</artifactId>
-    <version>4.14.3.1.0.0</version>
+    <version>4.14.3-SNAPSHOT</version>
   </parent>
   <groupId>com.datastax.oss</groupId>
   <artifactId>shaded-parent</artifactId>

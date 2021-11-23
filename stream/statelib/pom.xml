@@ -21,7 +21,7 @@
   <parent>
     <artifactId>stream-storage-parent</artifactId>
     <groupId>com.datastax.oss</groupId>
-    <version>4.14.3.1.0.0</version>
+    <version>4.14.3-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
   <groupId>com.datastax.oss</groupId>
