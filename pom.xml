@@ -23,7 +23,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.datastax.oss</groupId>
-  <version>4.14.3.1.0.1-SNAPSHOT</version>
+  <version>4.14.4.1.0.0</version>
   <artifactId>bookkeeper</artifactId>
   <packaging>pom</packaging>
   <name>Apache BookKeeper :: Parent</name>
@@ -40,7 +40,7 @@
     <connection>scm:git:https://github.com/datastax/bookkeeper.git</connection>
     <developerConnection>scm:git:https://github.com/datastax/bookkeeper.git</developerConnection>
     <url>https://github.com/datastax/bookkeeper</url>
-    <tag>HEAD</tag>
+    <tag>ds-4.14.4.1.0.0</tag>
   </scm>
   <issueManagement>
     <system>JIRA</system>
