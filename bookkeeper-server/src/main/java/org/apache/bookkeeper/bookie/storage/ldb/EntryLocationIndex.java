@@ -34,7 +34,6 @@ import org.apache.bookkeeper.bookie.storage.ldb.KeyValueStorage.Batch;
 import org.apache.bookkeeper.bookie.storage.ldb.KeyValueStorageFactory.DbConfigType;
 import org.apache.bookkeeper.conf.ServerConfiguration;
 import org.apache.bookkeeper.stats.StatsLogger;
-import org.apache.bookkeeper.util.MathUtils;
 import org.apache.bookkeeper.util.collections.ConcurrentLongHashSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,14 +48,12 @@ public class EntryLocationIndex implements Closeable {
 
     private final KeyValueStorage locationsDb;
     private final ConcurrentLongHashSet deletedLedgers = new ConcurrentLongHashSet();
-    private final int deleteEntriesBatchSize;
 
     private final EntryLocationIndexStats stats;
 
     public EntryLocationIndex(ServerConfiguration conf, KeyValueStorageFactory storageFactory, String basePath,
             StatsLogger stats) throws IOException {
-        locationsDb = storageFactory.newKeyValueStorage(basePath, "locations", DbConfigType.Huge, conf);
-        deleteEntriesBatchSize = conf.getRocksDBDeleteEntriesBatchSize();
+        locationsDb = storageFactory.newKeyValueStorage(basePath, "locations", DbConfigType.EntryLocation, conf);
 
         this.stats = new EntryLocationIndexStats(
             stats,
@@ -78,8 +75,6 @@ public class EntryLocationIndex implements Closeable {
         LongPairWrapper key = LongPairWrapper.get(ledgerId, entryId);
         LongWrapper value = LongWrapper.get();
 
-        long startTimeNanos = MathUtils.nowInNano();
-        boolean operationSuccess = false;
         try {
             if (locationsDb.get(key.array, value.array) < 0) {
                 if (log.isDebugEnabled()) {
@@ -87,27 +82,27 @@ public class EntryLocationIndex implements Closeable {
                 }
                 return 0;
             }
-            operationSuccess = true;
+
             return value.getValue();
         } finally {
             key.recycle();
             value.recycle();
-            if (operationSuccess) {
-                stats.getLookupEntryLocationStats()
-                        .registerSuccessfulEvent(MathUtils.elapsedNanos(startTimeNanos), TimeUnit.NANOSECONDS);
-            } else {
-                stats.getLookupEntryLocationStats()
-                        .registerFailedEvent(MathUtils.elapsedNanos(startTimeNanos), TimeUnit.NANOSECONDS);
-            }
         }
     }
 
     public long getLastEntryInLedger(long ledgerId) throws IOException {
         if (deletedLedgers.contains(ledgerId)) {
             // Ledger already deleted
-            return -1;
+            if (log.isDebugEnabled()) {
+                log.debug("Ledger {} already deleted in db", ledgerId);
+            }
+            /**
+             * when Ledger already deleted,
+             * throw Bookie.NoEntryException same like  the method
+             * {@link EntryLocationIndex.getLastEntryInLedgerInternal} solving ledgerId is not found.
+             * */
+            throw new Bookie.NoEntryException(ledgerId, -1);
         }
-
         return getLastEntryInLedgerInternal(ledgerId);
     }
 
@@ -187,6 +182,8 @@ public class EntryLocationIndex implements Closeable {
         deletedLedgers.add(ledgerId);
     }
 
+    private static final int DELETE_ENTRIES_BATCH_SIZE = 100000;
+
     public void removeOffsetFromDeletedLedgers() throws IOException {
         LongPairWrapper firstKeyWrapper = LongPairWrapper.get(-1, -1);
         LongPairWrapper lastKeyWrapper = LongPairWrapper.get(-1, -1);
@@ -204,12 +201,14 @@ public class EntryLocationIndex implements Closeable {
         long deletedEntriesInBatch = 0;
 
         Batch batch = locationsDb.newBatch();
+        final byte[] firstDeletedKey = new byte[keyToDelete.array.length];
 
         try {
             for (long ledgerId : ledgersToDelete) {
                 if (log.isDebugEnabled()) {
                     log.debug("Deleting indexes from ledger {}", ledgerId);
                 }
+
                 firstKeyWrapper.set(ledgerId, 0);
                 lastKeyWrapper.set(ledgerId, Long.MAX_VALUE);
 
@@ -234,7 +233,7 @@ public class EntryLocationIndex implements Closeable {
                 }
                 if (log.isDebugEnabled()) {
                     log.debug("Deleting index for ledger {} entries ({} -> {})",
-                        ledgerId, firstEntryId, lastEntryId);
+                            ledgerId, firstEntryId, lastEntryId);
                 }
 
                 // Iterate over all the keys and remove each of them
@@ -245,10 +244,12 @@ public class EntryLocationIndex implements Closeable {
                     }
                     batch.remove(keyToDelete.array);
                     ++deletedEntriesInBatch;
-                    ++deletedEntries;
+                    if (deletedEntries++ == 0) {
+                        System.arraycopy(keyToDelete.array, 0, firstDeletedKey, 0, firstDeletedKey.length);
+                    }
                 }
 
-                if (deletedEntriesInBatch > deleteEntriesBatchSize) {
+                if (deletedEntriesInBatch > DELETE_ENTRIES_BATCH_SIZE) {
                     batch.flush();
                     batch.clear();
                     deletedEntriesInBatch = 0;
@@ -258,6 +259,9 @@ public class EntryLocationIndex implements Closeable {
             try {
                 batch.flush();
                 batch.clear();
+                if (deletedEntries != 0) {
+                    locationsDb.compact(firstDeletedKey, keyToDelete.array);
+                }
             } finally {
                 firstKeyWrapper.recycle();
                 lastKeyWrapper.recycle();
@@ -267,7 +271,7 @@ public class EntryLocationIndex implements Closeable {
         }
 
         log.info("Deleted indexes for {} entries from {} ledgers in {} seconds", deletedEntries, ledgersToDelete.size(),
-            TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startTime) / 1000.0);
+                TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startTime) / 1000.0);
 
         // Removed from pending set
         for (long ledgerId : ledgersToDelete) {
