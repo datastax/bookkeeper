@@ -121,6 +121,7 @@ public class GarbageCollectorThread extends SafeRunnable {
 
     final ServerConfiguration conf;
 
+    final AbstractLogCompactor.Throttler throttler;
     /**
      * Create a garbage collector thread.
      *
@@ -199,6 +200,7 @@ public class GarbageCollectorThread extends SafeRunnable {
             this.compactor = new EntryLogCompactor(conf, entryLogger, ledgerStorage, remover);
         }
 
+        this.throttler = new AbstractLogCompactor.Throttler(conf);
         if (minorCompactionInterval > 0 && minorCompactionThreshold > 0) {
             if (minorCompactionThreshold > 1.0f) {
                 throw new IOException("Invalid minor compaction threshold "
@@ -604,7 +606,7 @@ public class GarbageCollectorThread extends SafeRunnable {
 
             try {
                 // Read through the entry log file and extract the entry log meta
-                EntryLogMetadata entryLogMeta = entryLogger.getEntryLogMetadata(entryLogId);
+                EntryLogMetadata entryLogMeta = entryLogger.getEntryLogMetadata(entryLogId, throttler);
                 removeIfLedgerNotExists(entryLogMeta);
                 if (entryLogMeta.isEmpty()) {
                     entryLogger.removeEntryLog(entryLogId);
