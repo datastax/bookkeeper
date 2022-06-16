@@ -635,7 +635,7 @@ public class BookieRequestProcessor implements RequestProcessor {
                             r.entryId);
                 }
 
-                write.sendResponse(
+                write.sendWriteReqResponse(
                     BookieProtocol.ETOOMANYREQUESTS,
                     ResponseBuilder.buildErrorResponse(BookieProtocol.ETOOMANYREQUESTS, r),
                     requestStats.getAddRequestStats());

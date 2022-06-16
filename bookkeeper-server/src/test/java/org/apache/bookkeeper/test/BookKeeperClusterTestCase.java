@@ -864,4 +864,7 @@ public abstract class BookKeeperClusterTestCase {
         return getStatsProvider(bs.get(index).getBookieId());
     }
 
+    protected ServerConfiguration confByIndex(int index) throws Exception {
+        return bsConfs.get(index);
+    }
 }

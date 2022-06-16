@@ -68,6 +68,8 @@ public class WriteEntryProcessorTest {
         requestProcessor = mock(BookieRequestProcessor.class);
         when(requestProcessor.getBookie()).thenReturn(bookie);
         when(requestProcessor.getRequestStats()).thenReturn(new RequestStats(NullStatsLogger.INSTANCE));
+        when(channel.isActive()).thenReturn(true);
+        when(channel.isWritable()).thenReturn(true);
         processor = WriteEntryProcessor.create(
             request,
             channel,
