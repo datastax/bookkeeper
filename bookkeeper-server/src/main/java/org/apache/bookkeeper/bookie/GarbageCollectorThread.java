@@ -26,8 +26,7 @@ import io.netty.util.concurrent.DefaultThreadFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
@@ -46,6 +45,7 @@ import org.apache.bookkeeper.meta.LedgerManager;
 import org.apache.bookkeeper.stats.StatsLogger;
 import org.apache.bookkeeper.util.MathUtils;
 import org.apache.bookkeeper.util.SafeRunnable;
+import org.apache.commons.lang3.mutable.MutableLong;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -454,47 +454,84 @@ public class GarbageCollectorThread extends SafeRunnable {
     void doCompactEntryLogs(double threshold, long maxTimeMillis) {
         LOG.info("Do compaction to compact those files lower than {}", threshold);
 
-        // sort the ledger meta by usage in ascending order.
-        List<EntryLogMetadata> logsToCompact = new ArrayList<EntryLogMetadata>();
-        logsToCompact.addAll(entryLogMetaMap.values());
-        logsToCompact.sort(Comparator.comparing(EntryLogMetadata::getUsage));
-
         final int numBuckets = 10;
         int[] entryLogUsageBuckets = new int[numBuckets];
         int[] compactedBuckets = new int[numBuckets];
 
-        long start = System.currentTimeMillis();
-        long end = start;
-        long timeDiff = 0;
+        ArrayList<LinkedList<Long>> compactableBuckets = new ArrayList<>(numBuckets);
+        for (int i = 0; i < numBuckets; i++) {
+            compactableBuckets.add(new LinkedList<>());
+        }
 
-        for (EntryLogMetadata meta : logsToCompact) {
+        long start = System.currentTimeMillis();
+        MutableLong end = new MutableLong(start);
+        MutableLong timeDiff = new MutableLong(0);
+
+        entryLogMetaMap.forEach((entryLogId, meta) -> {
             int bucketIndex = calculateUsageIndex(numBuckets, meta.getUsage());
             entryLogUsageBuckets[bucketIndex]++;
 
-            if (timeDiff < maxTimeMillis) {
-                end = System.currentTimeMillis();
-                timeDiff = end - start;
+            if (timeDiff.getValue() < maxTimeMillis) {
+                end.setValue(System.currentTimeMillis());
+                timeDiff.setValue(end.getValue() - start);
             }
-            if (meta.getUsage() >= threshold || (maxTimeMillis > 0 && timeDiff > maxTimeMillis) || !running) {
-                // We allow the usage limit calculation to continue so that we get a accurate
+            if (meta.getUsage() >= threshold || (maxTimeMillis > 0 && timeDiff.getValue() >= maxTimeMillis)
+                    || !running) {
+                // We allow the usage limit calculation to continue so that we get an accurate
                 // report of where the usage was prior to running compaction.
-                continue;
-            }
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("Compacting entry log {} with usage {} below threshold {}",
-                        meta.getEntryLogId(), meta.getUsage(), threshold);
+                return;
             }
 
-            long priorRemainingSize = meta.getRemainingSize();
-            compactEntryLog(meta);
-            gcStats.getReclaimedSpaceViaCompaction().add(meta.getTotalSize() - priorRemainingSize);
-            compactedBuckets[bucketIndex]++;
+            compactableBuckets.get(bucketIndex).add(meta.getEntryLogId());
+        });
+
+        LOG.info(
+                "Compaction: entry log usage buckets before compaction [10% 20% 30% 40% 50% 60% 70% 80% 90% 100%] = {}",
+                entryLogUsageBuckets);
+
+        final int maxBucket = calculateUsageIndex(numBuckets, threshold);
+        stopCompaction:
+        for (int currBucket = 0; currBucket <= maxBucket; currBucket++) {
+            LinkedList<Long> entryLogIds = compactableBuckets.get(currBucket);
+            while (!entryLogIds.isEmpty()) {
+                if (timeDiff.getValue() < maxTimeMillis) {
+                    end.setValue(System.currentTimeMillis());
+                    timeDiff.setValue(end.getValue() - start);
+                }
+
+                if ((maxTimeMillis > 0 && timeDiff.getValue() >= maxTimeMillis) || !running) {
+                    // We allow the usage limit calculation to continue so that we get an accurate
+                    // report of where the usage was prior to running compaction.
+                    break stopCompaction;
+                }
+
+                final int bucketIndex = currBucket;
+                final long logId = entryLogIds.remove();
+
+                EntryLogMetadata meta = entryLogMetaMap.get(logId);
+                if (meta == null) {
+                    if (LOG.isDebugEnabled()) {
+                        LOG.debug("Metadata for entry log {} already deleted", logId);
+                    }
+                    continue;
+                }
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("Compacting entry log {} with usage {} below threshold {}",
+                            meta.getEntryLogId(), meta.getUsage(), threshold);
+                }
+
+                long priorRemainingSize = meta.getRemainingSize();
+                compactEntryLog(meta);
+                gcStats.getReclaimedSpaceViaCompaction().add(meta.getTotalSize() - priorRemainingSize);
+                compactedBuckets[bucketIndex]++;
+            }
         }
+
         if (LOG.isDebugEnabled()) {
             if (!running) {
                 LOG.debug("Compaction exited due to gc not running");
             }
-            if (timeDiff > maxTimeMillis) {
+            if (maxTimeMillis > 0 && timeDiff.getValue() > maxTimeMillis) {
                 LOG.debug("Compaction ran for {}ms but was limited by {}ms", timeDiff, maxTimeMillis);
             }
         }
