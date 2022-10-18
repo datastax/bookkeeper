@@ -20,6 +20,8 @@ package org.apache.bookkeeper.proto;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelPromise;
 import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelPromise;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.bookkeeper.proto.BookieProtocol.Request;
@@ -152,12 +154,12 @@ abstract class PacketProcessorBase<T extends Request> extends SafeRunnable {
         try {
             ChannelFuture future = channel.writeAndFlush(response);
             if (!channel.eventLoop().inEventLoop()) {
-                future.await();
+                future.get();
             }
-        } catch (InterruptedException e) {
+        } catch (ExecutionException | InterruptedException e) {
+            logger.debug("Netty channel write exception. ", e);
             return;
         }
-
         if (BookieProtocol.EOK == rc) {
             statsLogger.registerSuccessfulEvent(MathUtils.elapsedNanos(enqueueNanos), TimeUnit.NANOSECONDS);
         } else {
