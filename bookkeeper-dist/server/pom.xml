@@ -23,7 +23,7 @@
   <parent>
     <artifactId>bookkeeper-dist</artifactId>
     <groupId>com.datastax.oss</groupId>
-    <version>4.14.7.1.0.1</version>
+    <version>4.14.7.1.0.2-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
 

@@ -20,7 +20,7 @@
   <parent>
     <groupId>com.datastax.oss.tests.shaded</groupId>
     <artifactId>shaded-tests-parent</artifactId>
-    <version>4.14.7.1.0.1</version>
+    <version>4.14.7.1.0.2-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
   <artifactId>distributedlog-core-shaded-test</artifactId>

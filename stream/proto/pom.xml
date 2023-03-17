@@ -20,7 +20,7 @@
   <parent>
     <groupId>com.datastax.oss</groupId>
     <artifactId>stream-storage-parent</artifactId>
-    <version>4.14.7.1.0.1</version>
+    <version>4.14.7.1.0.2-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
   <groupId>com.datastax.oss</groupId>
