@@ -21,7 +21,7 @@
   <parent>
     <groupId>com.datastax.oss.tests</groupId>
     <artifactId>integration-tests-base-groovy</artifactId>
-    <version>4.14.7.1.0.1-SNAPSHOT</version>
+    <version>4.14.7.1.0.1</version>
     <relativePath>../integration-tests-base-groovy</relativePath>
   </parent>
   <groupId>com.datastax.oss.tests</groupId>
