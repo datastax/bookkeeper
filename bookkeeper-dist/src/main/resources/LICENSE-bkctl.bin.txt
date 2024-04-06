@@ -237,9 +237,9 @@ Apache Software License, Version 2.
 - lib/io.netty.incubator-netty-incubator-transport-native-io_uring-0.0.26.Final-linux-aarch_64.jar [11]
 - lib/io.netty.incubator-netty-incubator-transport-classes-io_uring-0.0.26.Final.jar [11]
 - lib/io.netty-netty-transport-native-unix-common-4.1.121.Final.jar [11]
-- lib/org.apache.logging.log4j-log4j-api-2.18.0.jar [16]
-- lib/org.apache.logging.log4j-log4j-core-2.18.0.jar [16]
-- lib/org.apache.logging.log4j-log4j-slf4j-impl-2.18.0.jar [16]
+- lib/org.apache.logging.log4j-log4j-api-2.23.1.jar [16]
+- lib/org.apache.logging.log4j-log4j-core-2.23.1.jar [16]
+- lib/org.apache.logging.log4j-log4j-slf4j2-impl-2.23.1.jar [16]
 - lib/org.apache.commons-commons-collections4-4.1.jar [18]
 - lib/org.apache.commons-commons-lang3-3.17.0.jar [55]
 - lib/org.apache.zookeeper-zookeeper-3.9.3.jar [20]
@@ -299,8 +299,13 @@ Apache Software License, Version 2.
 [8] Source available at https://github.com/apache/commons-io/tree/rel/commons-io-2.19.0
 [9] Source available at https://github.com/apache/commons-lang/tree/LANG_2_6
 [10] Source available at https://github.com/apache/commons-logging/tree/commons-logging-1.1.1
+<<<<<<< HEAD
 [11] Source available at https://github.com/netty/netty/tree/netty-4.1.121.Final
 [16] Source available at https://github.com/apache/logging-log4j2/tree/rel/2.18.0
+=======
+[11] Source available at https://github.com/netty/netty/tree/netty-4.1.108.Final
+[16] Source available at https://github.com/apache/logging-log4j2/tree/rel/2.23.1
+>>>>>>> 8ca4118d51 (dependency: bump slf4j log4j2 version (#4248))
 [18] Source available at https://github.com/apache/commons-collections/tree/collections-4.1
 [19] Source available at https://github.com/apache/commons-lang/tree/LANG_3_6
 [20] Source available at https://github.com/apache/zookeeper/tree/release-3.8.0
@@ -571,11 +576,11 @@ Source available at https://github.com/protocolbuffers/protobuf/tree/v3.25.5
 For details, see deps/protobuf-3.12.0/LICENSE.
 ------------------------------------------------------------------------------------
 This product bundles Simple Logging Facade for Java, which is available under a
-MIT license. For details, see deps/slf4j-1.7.32/LICENSE.txt.
+MIT license. For details, see deps/slf4j-2.0.12/LICENSE.txt.
 
 Bundled as
-  - lib/org.slf4j-slf4j-api-1.7.32.jar
-Source available at https://github.com/qos-ch/slf4j/tree/v_1.7.32
+  - lib/org.slf4j-slf4j-api-2.0.12.jar
+Source available at https://github.com/qos-ch/slf4j/tree/v_2.0.12
 ------------------------------------------------------------------------------------
 This product bundles the Google Auth Library, which is available under a "3-clause BSD"
 license. For details, see deps/google-auth-library-credentials-0.20.0/LICENSE
