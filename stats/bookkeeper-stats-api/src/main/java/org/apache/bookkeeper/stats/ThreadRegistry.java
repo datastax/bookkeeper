@@ -18,6 +18,8 @@ package org.apache.bookkeeper.stats;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 /**
  * For mapping thread ids to thread pools and threads within those pools
  * or just for lone named threads. Thread scoped metrics add labels to
@@ -25,6 +27,8 @@ import java.util.concurrent.ConcurrentMap;
  * For flexibility, this registry is not based on TLS.
  */
 public class ThreadRegistry {
+
+    static final Logger LOG = LoggerFactory.getLogger(ThreadRegistry.class);
     private static ConcurrentMap<Long, ThreadPoolThread> threadPoolMap = new ConcurrentHashMap<>();
     private static ConcurrentMap<String, Integer> threadPoolThreadMap = new ConcurrentHashMap<>();
 
@@ -53,7 +57,7 @@ public class ThreadRegistry {
         ThreadPoolThread tpt = new ThreadPoolThread(threadPool, threadPoolThread, threadId);
         ThreadPoolThread previous = threadPoolMap.put(threadId, tpt);
         if (previous != null) {
-            throw new IllegalStateException("Thread " + threadId + " was already registered in thread pool "
+            LOG.error("Thread " + threadId + " was already registered in thread pool "
                     + previous.threadPool + " as thread " + previous.ordinal);
         }
     }
