@@ -38,7 +38,14 @@ public class ThreadRegistry {
     for the given thread pool.
     */
     public static void register(String threadPool) {
+        register(threadPool, false);
+    }
+
+    public static void register(String threadPool, boolean force) {
         Integer threadPoolThread = threadPoolThreadMap.compute(threadPool, (k, v) -> v == null ? 0 : v + 1);
+        if (force) {
+            threadPoolMap.remove(Thread.currentThread().getId());
+        }
         register(threadPool, threadPoolThread, Thread.currentThread().getId());
     }
 
