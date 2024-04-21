@@ -55,13 +55,17 @@ public class ThreadRegistry {
 
     /*
         Thread factories can register a thread by its id.
+        The assumption is that one thread belongs only to one threadpool.
+        The doesn't hold in tests, in which we use mock Executors that
+        run the code in the same thread as the caller
      */
     public static void register(String threadPool, int threadPoolThread, long threadId) {
         ThreadPoolThread tpt = new ThreadPoolThread(threadPool, threadPoolThread, threadId);
         ThreadPoolThread previous = threadPoolMap.put(threadId, tpt);
         if (previous != null) {
             throw new IllegalStateException("Thread " + threadId + " was already registered in thread pool "
-                    + previous.threadPool + " as thread " + previous.ordinal);
+                    + previous.threadPool + " as thread " + previous.ordinal + " with threadId " + previous.threadId +
+                    " trying to overwrite with " + threadPool + " and ordinal " + threadPoolThread);
         }
     }
 
