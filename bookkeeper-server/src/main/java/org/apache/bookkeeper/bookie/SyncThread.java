@@ -80,9 +80,13 @@ class SyncThread implements Checkpointer {
         this.dirsListener = dirsListener;
         this.ledgerStorage = ledgerStorage;
         this.checkpointSource = checkpointSource;
-        this.executor = Executors.newSingleThreadScheduledExecutor(new DefaultThreadFactory(executorName));
+        this.executor = Executors.newSingleThreadScheduledExecutor(new DefaultThreadFactory(executorName) {
+            @Override
+            protected Thread newThread(Runnable r, String name) {
+                return super.newThread(ThreadRegistry.registerThread(r, executorName), name);
+            }
+        });
         this.syncExecutorTime = statsLogger.getThreadScopedCounter("sync-thread-time");
-        this.executor.submit(() -> ThreadRegistry.register(executorName));
     }
 
     @Override

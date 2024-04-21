@@ -89,6 +89,10 @@ public class ThreadRegistry {
         }
     }
 
+    public static Runnable registerThread(Runnable runnable, String threadPool) {
+        return new RegisteredRunnable(threadPool, runnable);
+    }
+
     /*
         Clears all stored thread state.
      */
@@ -124,6 +128,22 @@ public class ThreadRegistry {
 
         public int getOrdinal() {
             return ordinal;
+        }
+    }
+
+    private static class RegisteredRunnable implements Runnable {
+        private final String threadPool;
+        private final Runnable runnable;
+
+        public RegisteredRunnable(String threadPool, Runnable runnable) {
+            this.threadPool = threadPool;
+            this.runnable = runnable;
+        }
+
+        @Override
+        public void run() {
+            register(threadPool);
+            runnable.run();
         }
     }
 }

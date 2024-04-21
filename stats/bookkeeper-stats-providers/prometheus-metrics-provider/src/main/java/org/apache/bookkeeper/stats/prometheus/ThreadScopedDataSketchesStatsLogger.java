@@ -99,7 +99,7 @@ public class ThreadScopedDataSketchesStatsLogger implements OpStatsLogger {
         if (!statsLogger.isThreadInitialized()) {
             ThreadRegistry.ThreadPoolThread tpt = ThreadRegistry.get();
             if (tpt == null) {
-                logger.info("Thread {} was not registered in the thread registry. Using default stats logger {}.",
+                logger.warn("Thread {} was not registered in the thread registry. Using default stats logger {}.",
                         Thread.currentThread(), defaultStatsLogger);
                 statsLoggers.set(defaultStatsLogger);
                 DataSketchesOpStatsLogger previous = provider.opStats
