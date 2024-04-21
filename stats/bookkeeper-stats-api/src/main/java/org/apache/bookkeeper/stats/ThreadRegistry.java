@@ -18,6 +18,9 @@ package org.apache.bookkeeper.stats;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * For mapping thread ids to thread pools and threads within those pools
  * or just for lone named threads. Thread scoped metrics add labels to
@@ -25,6 +28,7 @@ import java.util.concurrent.ConcurrentMap;
  * For flexibility, this registry is not based on TLS.
  */
 public class ThreadRegistry {
+    private static Logger logger = LoggerFactory.getLogger(ThreadRegistry.class);
     private static ConcurrentMap<Long, ThreadPoolThread> threadPoolMap = new ConcurrentHashMap<>();
     private static ConcurrentMap<String, Integer> threadPoolThreadMap = new ConcurrentHashMap<>();
 
@@ -43,6 +47,22 @@ public class ThreadRegistry {
             threadPoolMap.remove(Thread.currentThread().getId());
         }
         register(threadPool, threadPoolThread, Thread.currentThread().getId());
+    }
+
+    /**
+     * In some tests we run in the same thread activities that should
+     * run in different threads from different thread-pools
+     * this would trigger assertions to fail.
+     * This is a convenience method to work around such cases.
+     * This method shouldn't be used in production code.
+     */
+    public static void forceClearRegistrationForTests(long threadId) {
+        threadPoolMap.compute(threadId, (id, value) -> {
+            if (value !=  null) {
+                logger.info("Forcibly clearing registry entry {} for thread id {}", value, id);
+            }
+           return null;
+        });
     }
 
     /*
