@@ -24,10 +24,12 @@ on:
     branches:
       - master
       - branch-*
+      - 4.16_fx
   push:
     branches:
       - master
       - branch-*
+      - 4.16_fx  
   workflow_dispatch:
 
 env:
