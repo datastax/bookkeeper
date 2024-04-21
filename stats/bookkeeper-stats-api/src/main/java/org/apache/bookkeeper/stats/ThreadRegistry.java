@@ -64,8 +64,8 @@ public class ThreadRegistry {
         ThreadPoolThread previous = threadPoolMap.put(threadId, tpt);
         if (previous != null) {
             throw new IllegalStateException("Thread " + threadId + " was already registered in thread pool "
-                    + previous.threadPool + " as thread " + previous.ordinal + " with threadId " + previous.threadId +
-                    " trying to overwrite with " + threadPool + " and ordinal " + threadPoolThread);
+                    + previous.threadPool + " as thread " + previous.ordinal + " with threadId " + previous.threadId
+                    + " trying to overwrite with " + threadPool + " and ordinal " + threadPoolThread);
         }
     }
 
