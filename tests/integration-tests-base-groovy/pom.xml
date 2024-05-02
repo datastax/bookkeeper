@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.bookkeeper.tests</groupId>
     <artifactId>integration-tests-base</artifactId>
-    <version>4.16.5-fx-f4db1a24ab</version>
+    <version>4.16.5-fx-796523d3ea</version>
     <relativePath>../integration-tests-base</relativePath>
   </parent>
 
