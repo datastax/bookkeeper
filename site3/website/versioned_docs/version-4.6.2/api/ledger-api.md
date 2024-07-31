@@ -25,7 +25,7 @@ If you're using [Maven](https://maven.apache.org/), add this to your [`pom.xml`]
 
 <!-- in your <dependencies> block -->
 <dependency>
-  <groupId>org.apache.bookkeeper</groupId>
+  <groupId>com.datastax.oss</groupId>
   <artifactId>bookkeeper-server</artifactId>
   <version>${bookkeeper.version}</version>
 </dependency>
@@ -45,17 +45,17 @@ showed as below.
 
 <!-- in your <dependencies> block -->
 <dependency>
-  <groupId>org.apache.bookkeeper</groupId>
+  <groupId>com.datastax.oss</groupId>
   <artifactId>bookkeeper-server</artifactId>
   <version>${bookkeeper.version}</version>
   <classifier>shaded</classifier> <!-- specify "shaded" classifier to use shaded artifact -->
   <exclusions>
     <exclusion>
-      <groupId>org.apache.bookkeeper</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>bookkeeper-common</artifactId>
     </exclusion>
     <exclusion>
-      <groupId>org.apache.bookkeeper</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>bookkeeper-proto</artifactId>
     </exclusion>
   </exclusions>
@@ -70,7 +70,7 @@ Or you can use a separate shaded artifact `bookkeeper-server-shaded`.
 
 <!-- in your <dependencies> block -->
 <dependency>
-  <groupId>org.apache.bookkeeper</groupId>
+  <groupId>com.datastax.oss</groupId>
   <artifactId>bookkeeper-server-shaded</artifactId>
   <version>${bookkeeper.version}</version>
 </dependency>

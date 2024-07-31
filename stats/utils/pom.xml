@@ -21,15 +21,15 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>bookkeeper-stats-parent</artifactId>
-    <groupId>org.apache.bookkeeper.stats</groupId>
+    <groupId>com.datastax.oss</groupId>
     <version>4.16.7-SNAPSHOT</version>
   </parent>
-  <groupId>org.apache.bookkeeper.stats</groupId>
+  <groupId>com.datastax.oss</groupId>
   <artifactId>bookkeeper-stats-utils</artifactId>
   <name>Apache BookKeeper :: Stats :: Utils</name>
   <dependencies>
     <dependency>
-      <groupId>org.apache.bookkeeper.stats</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>bookkeeper-stats-api</artifactId>
       <version>${project.version}</version>
     </dependency>
