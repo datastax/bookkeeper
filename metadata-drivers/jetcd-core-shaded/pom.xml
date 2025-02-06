@@ -24,7 +24,7 @@
   <parent>
     <groupId>com.datastax.oss</groupId>
     <artifactId>metadata-drivers-parent</artifactId>
-    <version>4.17.1.0.0.0</version>
+    <version>4.17.1.0.0.1-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
   <groupId>com.datastax.oss</groupId>
