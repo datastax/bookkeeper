@@ -25,7 +25,7 @@ If you're using [Maven](https://maven.apache.org/), add this to your [`pom.xml`]
 
 <!-- in your <dependencies> block -->
 <dependency>
-  <groupId>org.apache.bookkeeper</groupId>
+  <groupId>com.datastax.oss</groupId>
   <artifactId>bookkeeper-server</artifactId>
   <version>${bookkeeper.version}</version>
 </dependency>

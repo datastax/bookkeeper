@@ -19,18 +19,18 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>bookkeeper-stats-providers</artifactId>
-    <groupId>org.apache.bookkeeper.stats</groupId>
+    <groupId>com.datastax.oss</groupId>
     <version>4.17.2-SNAPSHOT</version>
   </parent>
 
 
-  <groupId>org.apache.bookkeeper.stats</groupId>
+  <groupId>com.datastax.oss</groupId>
   <artifactId>otel-metrics-provider</artifactId>
   <name>Apache BookKeeper :: Stats Providers :: OpenTelemetry</name>
 
   <dependencies>
     <dependency>
-      <groupId>org.apache.bookkeeper.stats</groupId>
+      <groupId>com.datastax.oss</groupId>
       <artifactId>bookkeeper-stats-api</artifactId>
       <version>${project.parent.version}</version>
     </dependency>

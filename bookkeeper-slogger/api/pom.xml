@@ -17,11 +17,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>bookkeeper-slogger-parent</artifactId>
-        <groupId>org.apache.bookkeeper</groupId>
+        <groupId>com.datastax.oss</groupId>
         <version>4.17.2-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
-    <groupId>org.apache.bookkeeper</groupId>
+    <groupId>com.datastax.oss</groupId>
     <artifactId>bookkeeper-slogger-api</artifactId>
     <name>Apache BookKeeper :: Structured Logger :: API</name>
 </project>

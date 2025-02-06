@@ -25,7 +25,7 @@ If you're using [Maven](https://maven.apache.org/), add this to your [`pom.xml`]
 
 <!-- in your <dependencies> block -->
 <dependency>
-  <groupId>org.apache.bookkeeper</groupId>
+  <groupId>com.datastax.oss</groupId>
   <artifactId>bookkeeper-server</artifactId>
   <version>${bookkeeper.version}</version>
 </dependency>
@@ -41,7 +41,7 @@ shaded library, which relocate classes of protobuf and guava into a different na
 
 <!-- in your <dependencies> block -->
 <dependency>
-  <groupId>org.apache.bookkeeper</groupId>
+  <groupId>com.datastax.oss</groupId>
   <artifactId>bookkeeper-server-shaded</artifactId>
   <version>${bookkeeper.version}</version>
 </dependency>
