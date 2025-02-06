@@ -23,6 +23,7 @@ on:
     branches:
       - master
       - branch-*
+      - ds-*
     paths:
       - 'stream/**'
       - '.github/workflows/bk-streamstorage-python.yml'
@@ -30,6 +31,7 @@ on:
     branches:
       - master
       - branch-*
+      - ds-*
     paths:
       - 'stream/**'
       - '.github/workflows/bk-streamstorage-python.yml'

@@ -22,6 +22,7 @@ on:
     branches:
       - master
       - branch-*
+      - ds-*
     paths:
       - '**.md'
 

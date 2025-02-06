@@ -25,6 +25,7 @@ on:
     branches:
       - master
       - branch-*
+      - ds-*
     paths:
       - 'site3/**'
       - '.github/workflows/website-pr-validation.yaml'
