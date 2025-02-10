@@ -42,7 +42,7 @@ concurrency:
 jobs:
   build-and-license-check:
     name: PR Validation
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     timeout-minutes: 60
     steps:
       - name: Checkout
@@ -97,7 +97,7 @@ jobs:
 
   unit-tests:
     name: ${{ matrix.step_name }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     timeout-minutes: ${{ matrix.timeout || 60 }}
     needs: [ 'build-and-license-check' ]
     if: ${{ needs.build-and-license-check.outputs.docs_only != 'true' }}
@@ -198,7 +198,7 @@ jobs:
 
   integration-tests:
     name: Integration Tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     timeout-minutes: 75
     needs: [ 'build-and-license-check' ]
     if: ${{ needs.build-and-license-check.outputs.docs_only != 'true' }}
@@ -283,7 +283,7 @@ jobs:
 
   backward-compatibility-tests:
     name: Backward compatibility tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     timeout-minutes: 75
     needs: [ 'build-and-license-check' ]
     if: ${{ needs.build-and-license-check.outputs.docs_only != 'true' }}
@@ -434,7 +434,7 @@ jobs:
 
   jdk-compatibility-checks:
     name: ${{ matrix.step_name }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     timeout-minutes: ${{ matrix.timeout || 60 }}
     needs: [ 'build-and-license-check' ]
     if: ${{ needs.build-and-license-check.outputs.docs_only != 'true' }}
@@ -481,7 +481,7 @@ jobs:
 
   owasp-dependency-check:
     name: OWASP Dependency Check
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     timeout-minutes: 60
     needs: [ 'build-and-license-check' ]
     if: ${{ needs.build-and-license-check.outputs.need_owasp == 'true' }}

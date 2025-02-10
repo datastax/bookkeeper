@@ -34,7 +34,7 @@ jobs:
   build-website:
     name: Build and deploy the website
     if: ${{ github.repository == 'apache/bookkeeper' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     timeout-minutes: 180
     steps:
       - name: Checkout
