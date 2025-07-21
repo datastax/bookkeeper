@@ -133,8 +133,8 @@ CLI_GC_OPTS=${CLI_GC_OPTS:-"${DEFAULT_CLI_GC_OPTS}"}
 CLI_GC_LOGGING_OPTS=${CLI_GC_LOGGING_OPTS:-"${DEFAULT_CLI_GC_LOGGING_OPTS}"}
 
 # module names
-BOOKIE_SERVER_MODULE_NAME="(org.apache.bookkeeper-)?bookkeeper-server"
-TABLE_SERVICE_MODULE_NAME="(org.apache.bookkeeper-)?stream-storage-server"
+BOOKIE_SERVER_MODULE_NAME="(com.datastax.oss-)?bookkeeper-server"
+TABLE_SERVICE_MODULE_NAME="(com.datastax.oss-)?stream-storage-server"
 
 is_released_binary() {
   if [ -d ${BK_HOME}/lib ]; then
