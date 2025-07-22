@@ -1185,6 +1185,26 @@
         <artifactId>exec-maven-plugin</artifactId>
         <version>${exec-maven-plugin.version}</version>
       </plugin>
+      <plugin>
+        <artifactId>maven-release-plugin</artifactId>
+        <configuration>
+          <tagNameFormat>@{project.version}</tagNameFormat>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+          <useReleaseProfile>false</useReleaseProfile>
+          <releaseProfiles>release</releaseProfiles>
+          <goals>deploy</goals>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.sonatype.central</groupId>
+        <artifactId>central-publishing-maven-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <publishingServerId>central</publishingServerId>
+          <checksums>all</checksums>
+          <autoPublish>false</autoPublish>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
   <profiles>
@@ -1444,17 +1464,75 @@
         <UBUNTU_SECURITY_MIRROR>${env.UBUNTU_SECURITY_MIRROR}</UBUNTU_SECURITY_MIRROR>
       </properties>
     </profile>
-  </profiles>
-  <distributionManagement>
+    <profile>
+      <id>release</id>
+      <properties>
+        <src.dir>${project.build.directory}/generated-sources/delombok</src.dir>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok-maven-plugin</artifactId>
+            <version>${lombok-maven-plugin.version}</version>
+            <inherited>true</inherited>
+            <dependencies>
+              <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+              </dependency>
+            </dependencies>
+            <executions>
+              <execution>
+                <phase>generate-sources</phase>
+                <goals>
+                  <goal>delombok</goal>
+                </goals>
+                <configuration>
+                  <sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
+                  <outputDirectory>${project.build.directory}/generated-sources/delombok</outputDirectory>
+                  <formatPreferences>
+                    <pretty />
+                  </formatPreferences>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <configuration>
+              <!-- activate javadoc generation -->
+              <skip>false</skip>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+</profiles>
+  <repositories>
     <repository>
-      <id>datastax-releases</id>
-      <name>DataStax Local Releases</name>
-      <url>https://repo.aws.dsinternal.org/artifactory/datastax-releases-local/</url>
+      <id>DataStax Public repo</id>
+      <url>https://repo.datastax.com/artifactory/datastax-public-releases-local</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
     </repository>
-    <snapshotRepository>
-      <id>datastax-snapshots-local</id>
-      <name>DataStax Local Snapshots</name>
-      <url>https://repo.aws.dsinternal.org/artifactory/datastax-snapshots-local/</url>
-    </snapshotRepository>
-  </distributionManagement>
+  </repositories>
 </project>
