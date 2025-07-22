@@ -49,7 +49,7 @@ shaded library, which relocate classes of protobuf and guava into a different na
 
 ### Gradle
 
-If you're using [Gradle](https://gradle.org/), add this to your [`build.gradle`](https://spring.io/guides/gs/gradle/) build configuration file:
+If you're using [Gradle](https://gradle.org/), add this to your [`build.gradle`] build configuration file:
 
 ```groovy
 dependencies {
@@ -105,7 +105,7 @@ There are, however, other ways that you can create a client object:
   BookKeeper bkClient = new BookKeeper(config);
   ```
 
-* By specifying a `ClientConfiguration` and a [`ZooKeeper`](http://zookeeper.apache.org/doc/current/api/org/apache/zookeeper/ZooKeeper.html) client object:
+* By specifying a `ClientConfiguration` and a [`ZooKeeper`] client object:
 
   ```java
   ClientConfiguration config = new ClientConfiguration();
