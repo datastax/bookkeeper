@@ -122,7 +122,6 @@
     <commons-codec.version>1.18.0</commons-codec.version>
     <commons-configuration.version>1.10</commons-configuration.version>
     <commons-compress.version>1.27.1</commons-compress.version>
-    <commons-lang.version>2.6</commons-lang.version>
     <commons-lang3.version>3.18.0</commons-lang3.version>
     <commons-io.version>2.19.0</commons-io.version>
     <bouncycastle.version>1.0.2.4</bouncycastle.version>
@@ -280,9 +279,6 @@
         <version>${commons-io.version}</version>
       </dependency>
       <dependency>
-        <groupId>commons-lang</groupId>
-        <artifactId>commons-lang</artifactId>
-        <version>${commons-lang.version}</version>
       </dependency>
       <dependency>
         <groupId>com.google.guava</groupId>
