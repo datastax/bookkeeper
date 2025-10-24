@@ -63,7 +63,6 @@ import io.netty.util.concurrent.GenericFutureListener;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
-import java.net.UnknownHostException;
 import java.security.cert.Certificate;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
