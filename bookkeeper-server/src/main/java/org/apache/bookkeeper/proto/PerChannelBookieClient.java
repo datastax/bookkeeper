@@ -524,7 +524,7 @@ public class PerChannelBookieClient extends ChannelInboundHandlerAdapter {
         try {
             addr = bookieAddressResolver.resolve(bookieId);
         } catch (BookieAddressResolver.BookieIdNotResolvedException err) {
-            LOG.error("Cannot connect to {} as endpoint resolution failed (probably bookie is down) err {}",
+            LOG.warn("Cannot connect to {} as endpoint resolution failed (probably bookie is down) err {}",
                     bookieId, err.toString());
             return processBookieNotResolvedError(startTime, err);
         }
@@ -1783,16 +1783,8 @@ public class PerChannelBookieClient extends ChannelInboundHandlerAdapter {
                     return; // pendingOps should have been completed when other channel connected
                 } else {
                     Throwable cause = future.cause();
-                    if (cause instanceof UnknownHostException || cause instanceof NativeIoException) {
-                        // Don't log stack trace for common errors
-                        logBookieUnavailable(() -> LOG.warn("Could not connect to bookie: {}/{}, current state {} : {}",
-                                future.channel(), bookieId, state, future.cause().getMessage()));
-                    } else {
-                        // Regular exceptions, include stack trace
-                        logBookieUnavailable(() -> LOG.error("Could not connect to bookie: {}/{}, current state {} : ",
-                                future.channel(), bookieId, state, future.cause()));
-                    }
-
+                    logBookieUnavailable(() -> LOG.warn("Could not connect to bookie: {}/{}, current state {} : {}",
+                        future.channel(), bookieId, state, future.cause().getMessage()));
                     rc = BKException.Code.BookieHandleNotAvailableException;
                     Channel failedChannel = future.channel();
                     if (failedChannel != null) { // can be null in case of dummy failed ChannelFuture
