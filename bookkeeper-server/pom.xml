@@ -148,7 +148,7 @@
       <optional>true</optional>
     </dependency>
     <dependency>
-      <!-- needed by ZooKeeper server -->
+      <!-- needed by ZooKeeper server  -->
       <groupId>io.dropwizard.metrics</groupId>
       <artifactId>metrics-core</artifactId>
       <scope>runtime</scope>
