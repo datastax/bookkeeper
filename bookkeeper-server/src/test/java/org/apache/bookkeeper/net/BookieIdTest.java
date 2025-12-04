@@ -18,7 +18,7 @@
  * under the License.
  *
  */
-package org.apache.bookkeeper.net; 
+package org.apache.bookkeeper.net;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -29,6 +29,7 @@ import org.junit.Test;
 /**
  * Unit tests for BookieId class.
  */
+
 public class BookieIdTest {
 
     @Test
