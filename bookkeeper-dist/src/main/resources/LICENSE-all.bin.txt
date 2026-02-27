@@ -260,7 +260,7 @@ Apache Software License, Version 2.
 - lib/org.apache.logging.log4j-log4j-core-2.18.0.jar [17]
 - lib/org.apache.logging.log4j-log4j-slf4j-impl-2.18.0.jar [17]
 - lib/org.apache.commons-commons-collections4-4.1.jar [19]
-- lib/org.apache.commons-commons-lang3-3.17.0.jar [58]
+- lib/org.apache.commons-commons-lang3-3.18.0.jar [58]
 - lib/org.apache.zookeeper-zookeeper-3.9.4.jar [21]
 - lib/org.apache.zookeeper-zookeeper-jute-3.9.4.jar [21]
 - lib/org.apache.zookeeper-zookeeper-3.9.4-tests.jar [21]
