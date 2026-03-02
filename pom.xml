@@ -136,7 +136,7 @@
     <grpc.version>1.54.1</grpc.version>
     <guava.version>32.0.1-jre</guava.version>
     <kerby.version>1.1.1</kerby.version>
-    <hadoop.version>3.3.5</hadoop.version>
+    <hadoop.version>3.4.3</hadoop.version>
     <hdrhistogram.version>2.1.10</hdrhistogram.version>
     <jackson.version>2.18.6</jackson.version>
     <jcommander.version>1.82</jcommander.version>
