@@ -1205,6 +1205,12 @@
           <publishingServerId>central</publishingServerId>
           <checksums>all</checksums>
           <autoPublish>false</autoPublish>
+          <skipPublishing>false</skipPublishing>
+          <waitUntil>validated</waitUntil>
+          <deploymentName>DEPLOYMENT-bookkeeper-${project.version}</deploymentName>
+          <excludeArtifacts>
+            <excludeArtifact>scripts</excludeArtifact>
+          </excludeArtifacts>
         </configuration>
       </plugin>
     </plugins>
