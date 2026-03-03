@@ -1167,6 +1167,9 @@
           <publishingServerId>central</publishingServerId>
           <checksums>all</checksums>
           <autoPublish>false</autoPublish>
+          <skipPublishing>false</skipPublishing>
+          <waitUntil>validated</waitUntil>
+          <deploymentName>DEPLOYMENT-bookkeeper-${project.version}</deploymentName>
         </configuration>
       </plugin>
     </plugins>
@@ -1513,10 +1516,14 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
-            <configuration>
-              <!-- activate javadoc generation -->
-              <skip>false</skip>
-            </configuration>
+            <executions>
+              <execution>
+                <id>attach-javadoc</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
           </plugin>
         </plugins>
       </build>
