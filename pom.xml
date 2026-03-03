@@ -1170,6 +1170,9 @@
           <skipPublishing>false</skipPublishing>
           <waitUntil>validated</waitUntil>
           <deploymentName>DEPLOYMENT-bookkeeper-${project.version}</deploymentName>
+          <excludeArtifacts>
+            <excludeArtifact>scripts</excludeArtifact>
+          </excludeArtifacts>
         </configuration>
       </plugin>
     </plugins>
