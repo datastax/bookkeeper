@@ -24,8 +24,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -554,7 +554,9 @@ public class TestLedgerChecker extends BookKeeperClusterTestCase {
 
             // Simulate async completion
             new Thread(() -> {
-                try{Thread.sleep(10);} catch (InterruptedException ie){}
+                try {
+                        Thread.sleep(10);
+                } catch (InterruptedException ie) {}
                 int d = concurrentReads.decrementAndGet();
                 BookkeeperInternalCallbacks.ReadEntryCallback cb = invocation.getArgument(3);
                 cb.readEntryComplete(0, invocation.getArgument(1),
@@ -567,7 +569,7 @@ public class TestLedgerChecker extends BookKeeperClusterTestCase {
         // Create dummy LedgerHandle with enough fragments
         LedgerHandle lh = bkc.createLedger(BookKeeper.DigestType.CRC32, TEST_LEDGER_PASSWORD);
         startNewBookie();
-        for(int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 1000; i++) {
             lh.addEntry(TEST_LEDGER_ENTRY_DATA);
         }
 
