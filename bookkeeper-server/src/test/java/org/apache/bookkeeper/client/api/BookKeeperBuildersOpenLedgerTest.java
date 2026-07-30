@@ -27,6 +27,8 @@ import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.anyLong;
 import static org.mockito.Mockito.doAnswer;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.bookkeeper.client.BKException;
@@ -36,12 +38,14 @@ import org.apache.bookkeeper.client.MockBookKeeperTestCase;
 import org.apache.bookkeeper.net.BookieId;
 import org.apache.bookkeeper.proto.BookieProtocol;
 import org.apache.bookkeeper.proto.BookkeeperInternalCallbacks;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 /**
  * Tests for BookKeeper open ledger operations.
  */
+@RunWith(Parameterized.class)
 public class BookKeeperBuildersOpenLedgerTest extends MockBookKeeperTestCase {
 
     private static final int ensembleSize = 3;
@@ -52,9 +56,22 @@ public class BookKeeperBuildersOpenLedgerTest extends MockBookKeeperTestCase {
     private static final byte[] password = new byte[3];
     private static final byte[] entryData = new byte[32];
 
-    @ParameterizedTest
-    @ValueSource(booleans = {true, false})
-    public void testOpenLedger(boolean withRecovery) throws Exception {
+    private boolean withRecovery;
+
+    public BookKeeperBuildersOpenLedgerTest(boolean withRecovery) {
+        this.withRecovery = withRecovery;
+    }
+
+    @Parameterized.Parameters(name = "withRecovery:({0})")
+    public static Collection<Object[]> data() {
+        return Arrays.asList(new Object[][]{
+                {true},
+                {false}
+        });
+    }
+
+    @Test
+    public void testOpenLedger() throws Exception {
         LedgerMetadata ledgerMetadata = generateLedgerMetadata(ensembleSize,
             writeQuorumSize, ackQuorumSize, password, customMetadata);
         registerMockLedgerMetadata(ledgerId, ledgerMetadata);
@@ -74,9 +91,8 @@ public class BookKeeperBuildersOpenLedgerTest extends MockBookKeeperTestCase {
             .execute());
     }
 
-    @ParameterizedTest
-    @ValueSource(booleans = {true, false})
-    public void testOpenLedgerWithTimeoutEx(boolean withRecovery) throws Exception {
+    @Test
+    public void testOpenLedgerWithTimeoutEx() throws Exception {
         mockReadEntryTimeout();
         LedgerMetadata ledgerMetadata = generateLedgerMetadata(ensembleSize,
                 writeQuorumSize, ackQuorumSize, password, customMetadata);
