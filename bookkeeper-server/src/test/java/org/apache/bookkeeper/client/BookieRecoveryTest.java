@@ -20,9 +20,9 @@
  */
 package org.apache.bookkeeper.client;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import io.netty.buffer.ByteBuf;
 import java.io.IOException;
@@ -46,9 +46,9 @@ import org.apache.bookkeeper.net.BookieId;
 import org.apache.bookkeeper.proto.BookieProtocol;
 import org.apache.bookkeeper.proto.BookkeeperInternalCallbacks.ReadEntryCallback;
 import org.apache.bookkeeper.test.BookKeeperClusterTestCase;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -104,7 +104,7 @@ public class BookieRecoveryTest extends BookKeeperClusterTestCase {
         baseClientConf.setLedgerManagerFactoryClassName(ledgerManagerFactory);
     }
 
-    @BeforeEach
+    @Before
     @Override
     public void setUp() throws Exception {
         // Set up the configuration properties needed.
@@ -119,7 +119,7 @@ public class BookieRecoveryTest extends BookKeeperClusterTestCase {
         bkAdmin = new BookKeeperAdmin(adminConf);
     }
 
-    @AfterEach
+    @After
     @Override
     public void tearDown() throws Exception {
         // Release any resources used by the BookieRecoveryTest instance.
@@ -279,7 +279,7 @@ public class BookieRecoveryTest extends BookKeeperClusterTestCase {
         startAndAddBookie(confOfKilledBookie);
 
         // all ensembles should be fully replicated since it is recovered
-        assertTrue(verifyFullyReplicated(lh, 3 * numEntries), "Not fully replicated");
+        assertTrue("Not fully replicated", verifyFullyReplicated(lh, 3 * numEntries));
         lh.close();
     }
 
@@ -607,7 +607,7 @@ public class BookieRecoveryTest extends BookKeeperClusterTestCase {
 
         bkAdmin.recoverBookieData(bookieToKill);
         for (LedgerHandle lh : lhs) {
-            assertTrue(verifyFullyReplicated(lh, numMsgs), "Not fully replicated");
+            assertTrue("Not fully replicated", verifyFullyReplicated(lh, numMsgs));
             lh.close();
         }
     }
@@ -637,7 +637,7 @@ public class BookieRecoveryTest extends BookKeeperClusterTestCase {
         bkAdmin.recoverBookieData(bookieToKill);
 
         for (LedgerHandle lh : lhs) {
-            assertTrue(verifyFullyReplicated(lh, numMsgs), "Not fully replicated");
+            assertTrue("Not fully replicated", verifyFullyReplicated(lh, numMsgs));
         }
 
         try {
@@ -694,7 +694,7 @@ public class BookieRecoveryTest extends BookKeeperClusterTestCase {
         bkAdmin.recoverBookieData(bookieToKill);
 
         for (LedgerHandle lh : lhs) {
-            assertTrue(verifyFullyReplicated(lh, numMsgs), "Not fully replicated");
+            assertTrue("Not fully replicated", verifyFullyReplicated(lh, numMsgs));
         }
 
         // open ledgers to read metadata
@@ -770,13 +770,13 @@ public class BookieRecoveryTest extends BookKeeperClusterTestCase {
         sync.value = false;
         bkAdmin.recoverBookieData(bookieSrc);
 
-        assertFalse(findDupesInEnsembles(lhs), "Dupes exist in ensembles");
+        assertFalse("Dupes exist in ensembles", findDupesInEnsembles(lhs));
 
         // Write some more entries to ensure fencing hasn't broken stuff
         writeEntriestoLedgers(numMsgs, numMsgs * 2, lhs);
 
         for (LedgerHandle lh : lhs) {
-            assertTrue(verifyFullyReplicated(lh, numMsgs * 3), "Not fully replicated");
+            assertTrue("Not fully replicated", verifyFullyReplicated(lh, numMsgs * 3));
             lh.close();
         }
     }
@@ -801,7 +801,7 @@ public class BookieRecoveryTest extends BookKeeperClusterTestCase {
 
         // Check that entries are missing
         lh = bkc.openLedgerNoRecovery(ledgerId, digestCorrect, passwdCorrect);
-        assertFalse(verifyFullyReplicated(lh, 100), "Should be entries missing");
+        assertFalse("Should be entries missing", verifyFullyReplicated(lh, 100));
         lh.close();
 
         // Try to recover with bad password in conf
@@ -818,7 +818,7 @@ public class BookieRecoveryTest extends BookKeeperClusterTestCase {
         bka.close();
 
         lh = bkc.openLedgerNoRecovery(ledgerId, digestCorrect, passwdCorrect);
-        assertTrue(verifyFullyReplicated(lh, 100), "Should be back to fully replication");
+        assertTrue("Should be back to fully replication", verifyFullyReplicated(lh, 100));
         lh.close();
 
         bookieSrc = addressByIndex(0);
@@ -827,7 +827,7 @@ public class BookieRecoveryTest extends BookKeeperClusterTestCase {
 
         // Check that entries are missing
         lh = bkc.openLedgerNoRecovery(ledgerId, digestCorrect, passwdCorrect);
-        assertFalse(verifyFullyReplicated(lh, 100), "Should be entries missing");
+        assertFalse("Should be entries missing", verifyFullyReplicated(lh, 100));
         lh.close();
 
         // Try to recover with no password in conf
@@ -840,7 +840,7 @@ public class BookieRecoveryTest extends BookKeeperClusterTestCase {
         bka.close();
 
         lh = bkc.openLedgerNoRecovery(ledgerId, digestCorrect, passwdCorrect);
-        assertTrue(verifyFullyReplicated(lh, 100), "Should be back to fully replication");
+        assertTrue("Should be back to fully replication", verifyFullyReplicated(lh, 100));
         lh.close();
     }
 

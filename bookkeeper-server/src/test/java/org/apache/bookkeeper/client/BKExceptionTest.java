@@ -20,47 +20,47 @@
  */
 package org.apache.bookkeeper.client;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.ExecutionException;
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Test for extracting codes from BKException.
  */
 public class BKExceptionTest {
-
     @Test
     public void testBKExceptionCode() {
-        assertEquals(BKException.Code.WriteException,
-                BKException.getExceptionCode(new BKException.BKWriteException(),
-                        BKException.Code.ReadException));
+        Assert.assertEquals(BKException.Code.WriteException,
+                            BKException.getExceptionCode(new BKException.BKWriteException(),
+                                                         BKException.Code.ReadException));
     }
 
     @Test
     public void testNonBKExceptionCode() {
-        assertEquals(BKException.Code.ReadException,
-                BKException.getExceptionCode(new Exception(),
-                        BKException.Code.ReadException));
+        Assert.assertEquals(BKException.Code.ReadException,
+                            BKException.getExceptionCode(new Exception(),
+                                                         BKException.Code.ReadException));
+
     }
 
     @Test
     public void testNestedBKExceptionCode() {
-        assertEquals(BKException.Code.WriteException,
-                BKException.getExceptionCode(
-                        new ExecutionException("test", new BKException.BKWriteException()),
-                        BKException.Code.ReadException));
+        Assert.assertEquals(BKException.Code.WriteException,
+                            BKException.getExceptionCode(
+                                    new ExecutionException("test", new BKException.BKWriteException()),
+                                    BKException.Code.ReadException));
     }
 
     @Test
     public void testDoubleNestedBKExceptionCode() {
-        assertEquals(BKException.Code.WriteException,
-                BKException.getExceptionCode(
-                        new ExecutionException("test",
-                                new CompletionException("blah",
-                                        new BKException.BKWriteException())),
-                        BKException.Code.ReadException));
+        Assert.assertEquals(BKException.Code.WriteException,
+                            BKException.getExceptionCode(
+                                    new ExecutionException("test",
+                                            new CompletionException("blah",
+                                                    new BKException.BKWriteException())),
+                                    BKException.Code.ReadException));
+
     }
 }
 
