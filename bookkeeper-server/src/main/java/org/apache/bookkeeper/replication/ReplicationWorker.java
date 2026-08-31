@@ -738,7 +738,7 @@ public class ReplicationWorker implements Runnable {
         long delayOfLedgerLockReleaseInMSecs = (numOfTimesFailedSoFar >= NUM_OF_EXPONENTIAL_BACKOFF_RETRIALS)
                 ? this.lockReleaseOfFailedLedgerGracePeriod
                 : this.baseBackoffForLockReleaseOfFailedLedger * (int) Math.pow(2, numOfTimesFailedSoFar);
-        LOG.error(
+        LOG.warn(
                 "ReplicationWorker failed to replicate Ledger : {} for {} number of times, "
                 + "so deferring the ledger lock release by {} msecs",
                 ledgerId, numOfTimesFailedSoFar, delayOfLedgerLockReleaseInMSecs);
