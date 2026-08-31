@@ -29,6 +29,7 @@ import org.junit.Test;
 /**
  * Unit tests for BookieId class.
  */
+
 public class BookieIdTest {
 
     @Test
